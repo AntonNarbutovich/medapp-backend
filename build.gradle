@@ -1,3 +1,8 @@
+repositories {
+	mavenCentral()
+	maven { url 'http://dl.bintray.com/vermeulen-mp/gradle-plugins' }
+}
+
 plugins {
 	id 'org.springframework.boot' version '2.7.2'
 	id 'io.spring.dependency-management' version '1.0.12.RELEASE'
@@ -18,6 +23,12 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation group: 'org.postgresql', name: 'postgresql', version: '42.4.0'
+	classpath "org.gradle.api.plugins:gradle-heroku:0.9.6"
+}
+apply plugin: 'heroku'
+
+heroku {
+	apiKey = 'a7b57b30-0397-40b4-8aff-a7b17d2ec5fb'
 }
 
 tasks.named('test') {
