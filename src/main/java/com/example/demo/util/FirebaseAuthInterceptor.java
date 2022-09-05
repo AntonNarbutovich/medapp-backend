@@ -5,7 +5,6 @@ import com.example.demo.repository.UserRepository;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseToken;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.HandlerInterceptor;
 
@@ -23,7 +22,7 @@ public class FirebaseAuthInterceptor implements HandlerInterceptor {
         String token = request.getHeader("Authorization");
         FirebaseToken decodedToken = FirebaseAuth.getInstance().verifyIdToken(token);
         UserDTO user = userRepository.findByFirebaseId(decodedToken.getUid()).get(0);
-        request.setAttribute("userId", user.getUserId());
+        request.setAttribute("userId", user.getId());
         return true;
     }
 

@@ -9,7 +9,8 @@ public class UserDTO {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    protected Long userId;
+    protected Long id;
+
     protected String firstName;
     protected String lastName;
     protected String email;
@@ -20,12 +21,12 @@ public class UserDTO {
     protected String location;
     protected LocalDate createdAt;
 
-    public Long getUserId() {
-        return userId;
+    public Long getId() {
+        return id;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getFirstName() {
