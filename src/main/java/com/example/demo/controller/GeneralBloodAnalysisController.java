@@ -19,8 +19,8 @@ public class GeneralBloodAnalysisController {
     }
 
     @GetMapping
-    public List<BloodAnalysisDTO> getList() {
-        return generalBloodAnalysisRepository.findByUserId(1L);
+    public List<BloodAnalysisDTO> getList(@RequestAttribute Long id) {
+        return generalBloodAnalysisRepository.findByUserId(id);
     }
 
     @PostMapping

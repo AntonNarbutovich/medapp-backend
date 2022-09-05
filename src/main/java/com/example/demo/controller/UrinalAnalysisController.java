@@ -19,8 +19,8 @@ public class UrinalAnalysisController {
     }
 
     @GetMapping
-    public List<UrinalAnalysisDTO> getList() {
-        return urinalAnalysisRepository.findByUserId(1L);
+    public List<UrinalAnalysisDTO> getList(@RequestAttribute Long id) {
+        return urinalAnalysisRepository.findByUserId(id);
     }
 
     @PostMapping

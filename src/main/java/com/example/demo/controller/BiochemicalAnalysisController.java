@@ -19,8 +19,8 @@ public class BiochemicalAnalysisController {
     }
 
     @GetMapping
-    public List<BiochemicalAnalysisDTO> getList() {
-        return biochemicalAnalysisRepository.findByUserId(1L);
+    public List<BiochemicalAnalysisDTO> getList(@RequestAttribute Long id) {
+        return biochemicalAnalysisRepository.findByUserId(id);
     }
 
     @PostMapping
