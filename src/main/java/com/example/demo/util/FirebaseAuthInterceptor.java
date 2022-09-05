@@ -20,6 +20,7 @@ public class FirebaseAuthInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         String token = request.getHeader("Authorization");
         FirebaseToken decodedToken = FirebaseAuth.getInstance().verifyIdToken(token);
+        System.out.println("TOKEN: " + decodedToken.getUid());
         UserDTO user = userRepository.findByFirebaseId(decodedToken.getUid()).get(0);
         request.setAttribute("userId", user.getUserId());
         return true;
