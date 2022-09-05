@@ -19,12 +19,13 @@ public class GeneralBloodAnalysisController {
     }
 
     @GetMapping
-    public List<BloodAnalysisDTO> getList(@RequestAttribute Long id) {
-        return generalBloodAnalysisRepository.findByUserId(id);
+    public List<BloodAnalysisDTO> getList(@RequestAttribute Long userId) {
+        return generalBloodAnalysisRepository.findByUserId(userId);
     }
 
     @PostMapping
-    public BloodAnalysisDTO addAnalysis(@RequestBody BloodAnalysisDTO analysis) {
+    public BloodAnalysisDTO addAnalysis(@RequestAttribute Long userId, @RequestBody BloodAnalysisDTO analysis) {
+        analysis.setUserId(userId);
         generalBloodAnalysisRepository.save(analysis);
         return analysis;
     }

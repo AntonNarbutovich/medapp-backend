@@ -19,12 +19,13 @@ public class UrinalAnalysisController {
     }
 
     @GetMapping
-    public List<UrinalAnalysisDTO> getList(@RequestAttribute Long id) {
-        return urinalAnalysisRepository.findByUserId(id);
+    public List<UrinalAnalysisDTO> getList(@RequestAttribute Long userId) {
+        return urinalAnalysisRepository.findByUserId(userId);
     }
 
     @PostMapping
-    public UrinalAnalysisDTO addAnalysis(@RequestBody UrinalAnalysisDTO analysis) {
+    public UrinalAnalysisDTO addAnalysis(@RequestAttribute Long userId, @RequestBody UrinalAnalysisDTO analysis) {
+        analysis.setUserId(userId);
         urinalAnalysisRepository.save(analysis);
         return analysis;
     }

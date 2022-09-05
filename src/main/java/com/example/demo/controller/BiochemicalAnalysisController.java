@@ -19,12 +19,13 @@ public class BiochemicalAnalysisController {
     }
 
     @GetMapping
-    public List<BiochemicalAnalysisDTO> getList(@RequestAttribute Long id) {
-        return biochemicalAnalysisRepository.findByUserId(id);
+    public List<BiochemicalAnalysisDTO> getList(@RequestAttribute Long userId) {
+        return biochemicalAnalysisRepository.findByUserId(userId);
     }
 
     @PostMapping
-    public BiochemicalAnalysisDTO addAnalysis(@RequestBody BiochemicalAnalysisDTO analysis) {
+    public BiochemicalAnalysisDTO addAnalysis(@RequestAttribute Long userId, @RequestBody BiochemicalAnalysisDTO analysis) {
+        analysis.setUserId(userId);
         biochemicalAnalysisRepository.save(analysis);
         return analysis;
     }
