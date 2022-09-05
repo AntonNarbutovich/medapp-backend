@@ -51,4 +51,27 @@ public class UserController {
         return new ResponseEntity(HttpStatus.OK);
     }
 
+    @PostMapping("/register")
+    public ResponseEntity register(@RequestHeader("Authorization") String token, @RequestBody() UserDTO user) {
+        try {
+            FirebaseToken decodedToken = FirebaseAuth.getInstance().verifyIdToken(token);
+            List<UserDTO> userList = userRepository.findByFirebaseId(decodedToken.getUid());
+            if(userList.isEmpty()){
+                UserDTO newUser = new UserDTO();
+                newUser.setFirstName(user.getFirstName());
+                //newUser.setLastName(decodedToken.getName().split(" ")[1]);
+                newUser.setEmail(decodedToken.getEmail());
+                //newUser.setImg(decodedToken.getPicture());
+                //newUser.setProvider(decodedToken.getIssuer());
+                newUser.setFirebaseId(decodedToken.getUid());
+                newUser.setActive(true);
+
+                userRepository.save(newUser);
+            }
+        } catch (FirebaseAuthException e) {
+            return new ResponseEntity(HttpStatus.FORBIDDEN);
+        }
+
+        return new ResponseEntity(HttpStatus.OK);
+    }
 }
