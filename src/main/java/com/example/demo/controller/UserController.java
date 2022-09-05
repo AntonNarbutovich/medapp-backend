@@ -34,11 +34,11 @@ public class UserController {
             List<UserDTO> userList = userRepository.findByFirebaseId(decodedToken.getUid());
             if(userList.isEmpty()){
                 UserDTO newUser = new UserDTO();
-                newUser.setFirstName(decodedToken.getName().split(" ")[0]);
-                newUser.setLastName(decodedToken.getName().split(" ")[1]);
+                //newUser.setFirstName(decodedToken.getName().split(" ")[0]);
+                //newUser.setLastName(decodedToken.getName().split(" ")[1]);
                 newUser.setEmail(decodedToken.getEmail());
-                newUser.setImg(decodedToken.getPicture());
-                newUser.setProvider(decodedToken.getIssuer());
+                //newUser.setImg(decodedToken.getPicture());
+                //newUser.setProvider(decodedToken.getIssuer());
                 newUser.setFirebaseId(decodedToken.getUid());
                 newUser.setActive(true);
 
