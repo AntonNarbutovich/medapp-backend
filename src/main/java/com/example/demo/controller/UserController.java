@@ -8,6 +8,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.FirebaseToken;
 import org.apache.catalina.UserDatabase;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.Entity;
@@ -26,7 +28,7 @@ public class UserController {
     }
 
     @GetMapping("/auth")
-    public void authenticate(@RequestHeader("Authorization") String token) {
+    public ResponseEntity authenticate(@RequestHeader("Authorization") String token) {
         try {
             FirebaseToken decodedToken = FirebaseAuth.getInstance().verifyIdToken(token);
             List<UserDTO> userList = userRepository.findByFirebaseId(decodedToken.getUid());
@@ -43,9 +45,10 @@ public class UserController {
                 userRepository.save(newUser);
             }
         } catch (FirebaseAuthException e) {
-            e.printStackTrace();
+            return new ResponseEntity(HttpStatus.FORBIDDEN);
         }
 
+        return new ResponseEntity(HttpStatus.OK);
     }
 
 }
