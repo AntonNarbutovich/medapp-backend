@@ -10,6 +10,7 @@ import org.springframework.web.servlet.HandlerInterceptor;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 @Service
 public class FirebaseAuthInterceptor implements HandlerInterceptor {
@@ -21,8 +22,11 @@ public class FirebaseAuthInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         String token = request.getHeader("Authorization");
         FirebaseToken decodedToken = FirebaseAuth.getInstance().verifyIdToken(token);
-        UserDTO user = userRepository.findByFirebaseId(decodedToken.getUid()).get(0);
-        request.setAttribute("userId", user.getId());
+        List<UserDTO> userList = userRepository.findByFirebaseId(decodedToken.getUid());
+        if(userList != null && !userList.isEmpty()){
+            UserDTO user = userList.get(0);
+            request.setAttribute("userId", user.getId());
+        }
         return true;
     }
 
