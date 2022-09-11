@@ -78,8 +78,7 @@ public class UserController {
     @GetMapping("/current")
     public UserDTO getCurrentUser(@RequestHeader("Authorization") String token) {
         try {
-            FirebaseToken decodedToken = null;
-            decodedToken = FirebaseAuth.getInstance().verifyIdToken(token);
+            FirebaseToken decodedToken = FirebaseAuth.getInstance().verifyIdToken(token);
             List<UserDTO> userList = userRepository.findByFirebaseId(decodedToken.getUid());
             return userList.get(0);
         } catch (FirebaseAuthException e) {
