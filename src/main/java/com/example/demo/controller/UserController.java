@@ -32,7 +32,7 @@ public class UserController {
         try {
             FirebaseToken decodedToken = FirebaseAuth.getInstance().verifyIdToken(token);
             List<UserDTO> userList = userRepository.findByFirebaseId(decodedToken.getUid());
-            if(userList.isEmpty()){
+            if (userList.isEmpty()) {
                 UserDTO newUser = new UserDTO();
                 //newUser.setFirstName(decodedToken.getName().split(" ")[0]);
                 //newUser.setLastName(decodedToken.getName().split(" ")[1]);
@@ -56,7 +56,7 @@ public class UserController {
         try {
             FirebaseToken decodedToken = FirebaseAuth.getInstance().verifyIdToken(token);
             List<UserDTO> userList = userRepository.findByFirebaseId(decodedToken.getUid());
-            if(userList.isEmpty()){
+            if (userList.isEmpty()) {
                 UserDTO newUser = new UserDTO();
                 newUser.setFirstName(user.getFirstName());
                 //newUser.setLastName(decodedToken.getName().split(" ")[1]);
@@ -73,5 +73,18 @@ public class UserController {
         }
 
         return new ResponseEntity(HttpStatus.OK);
+    }
+
+    @GetMapping("/current")
+    public UserDTO getCurrentUser(@RequestHeader("Authorization") String token) {
+        try {
+            FirebaseToken decodedToken = null;
+            decodedToken = FirebaseAuth.getInstance().verifyIdToken(token);
+            List<UserDTO> userList = userRepository.findByFirebaseId(decodedToken.getUid());
+            return userList.get(0);
+        } catch (FirebaseAuthException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }
