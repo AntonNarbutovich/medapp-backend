@@ -61,7 +61,7 @@ public class UserController {
                 newUser.setFirstName(user.getFirstName());
                 //newUser.setLastName(decodedToken.getName().split(" ")[1]);
                 newUser.setEmail(decodedToken.getEmail());
-                //newUser.setImg(decodedToken.getPicture());
+                newUser.setImg("https://ynnovate.it/wp-content/uploads/2015/07/default-avatar1.png");//decodedToken.getPicture());
                 //newUser.setProvider(decodedToken.getIssuer());
                 newUser.setFirebaseId(decodedToken.getUid());
                 newUser.setActive(true);
